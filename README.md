@@ -3,7 +3,8 @@
 
 * 모델
 
-![캡처](C:\Users\이형태\Desktop\캡처.PNG)
+![캡처](https://user-images.githubusercontent.com/42109314/114997043-6b963f80-9eda-11eb-88d8-575e43f8601b.PNG)
+
 
 사전훈련된 inceptionV3 CNN를 사용하여 이미지에서 뽑아낸 커널갯수 64개의 특징벡터를 추출했다.  어텐션 매커니즘을 활용해 64차원의 Filter와 2048개의 Filter 갯수를 가진 이미지 특징벡터와 LSTM의 hidden_state 사이의 관련도를 함축한 context_vector를 뽑아내고 이를 Decoder LSTM의 Output과 행렬합해 단어사전크기의 노드개수를 가진 Full connection network를 통과해 다음 단어를 예측하였다.
 
