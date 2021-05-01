@@ -7,7 +7,7 @@
 ![캡처d](https://user-images.githubusercontent.com/42109314/116006659-2810a380-a647-11eb-9ff2-558acc02f48b.PNG)
 
 
-사전훈련된 inceptionV3 CNN를 사용하여 이미지에서 뽑아낸 커널갯수 64개의 특징벡터를 추출했다.  어텐션 매커니즘을 활용해 8X8 사이즈의 Filter와 2048개의 Filter 갯수를 가진 이미지 특징벡터와 LSTM의 hidden_state 사이의 관련도를 함축한 context_vector를 뽑아내고 이를 Decoder LSTM의 Output과 행렬합해 단어사전크기의 노드개수를 가진 Full connection network를 통과해 다음 단어를 예측하였다.
+사전훈련된 inceptionV3 CNN를 사용하여 8 X 8 X 2048 크기의 이미지 특징벡터와 LSTM의 hidden_state 사이의 관련도를 함축한 context_vector를 뽑아내고 이를 Decoder LSTM의 Output과 행렬합해 단어사전크기의 노드개수를 가진 Full connection network를 통과해 다음 단어를 예측하였다.
 
 * Attention 메카니즘
 
@@ -15,7 +15,7 @@
 
 * Show and tell
 
-  Seq2Seq 모델에서 영감을 받아 사전 훈련된 CNN을 Encoder로 사용한다.  Seq2Seq 모델의 ContextVector는 CNN의 마지막 출력층의 Output를 사용한다.
+  Seq2Seq 모델에서 영감을 받아 사전 훈련된 CNN을 Encoder로 사용한다.  Seq2Seq 모델의 ContextVector는 CNN의 마지막 출력층의 flatten된 Output를 사용한다.
 
 * Merge Model
 
@@ -23,8 +23,11 @@
 
 * with Attention 메카니즘
 
-  사전 훈련된 CNN의 마지막 출력층 대신 Filter들이 보존된 출력층을 사용한다. 그리고 decoder의 Output과 Filter들 중 가장 관련있는 Filter(Image Feature)를 더 많이 반영한다.
-
+  사전 훈련된 CNN의 마지막 출력층 대신 Flatten 되지 않은 출력층을 사용한다. 그리고 decoder의 Output과 이미지 특징 벡터의 연관도를 Bahdanau Attention으로 측정해 가장 관련있는 이미지 위치를 더 많이 반영한다.
+  
+* Image feature의 구조
+    
+![SmartSelect_20210502-034952_Samsung Notes](https://user-images.githubusercontent.com/42109314/116792119-ac58a000-aaf9-11eb-995e-6cfbd3feb11c.jpg)
 
 
 * Requirements
